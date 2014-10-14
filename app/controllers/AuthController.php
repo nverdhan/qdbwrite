@@ -18,6 +18,9 @@ class AuthController extends BaseController {
   {
     if(Auth::attempt(array('email' => Input::json('email'), 'password' => Input::json('password'))))
     {
+      Session::put('entryStarted',false);
+      Auth::user()->last_login= date('Y-m-d H:i:s');
+      Auth::user()->save();
       return Response::json(Auth::user());
     } else {
       return Response::json(array('flash' => 'Invalid username or password!'), 500);

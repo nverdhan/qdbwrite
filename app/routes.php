@@ -27,7 +27,35 @@ Route::post('/auth/login', array(
 Route::get('/auth/logout', 'AuthController@logout');
 Route::get('/auth/status', 'AuthController@status');
 
+Route::get('/getBooks', array(
+    'before'=>'auth',
+    'uses' =>'TypingController@getChapterList'
+));
 
+Route::post('/getBatchID', array(
+    'before' => 'auth',
+    'uses' => 'TypingController@getBatchID'));
+
+Route::post('/getQID', array(
+    'before' => 'auth',
+    'uses' => 'TypingController@getQID'));
+
+Route::get('/getTopics' ,array(
+    'before'=>'auth',
+    'uses' =>'TypingController@getTopicList'
+    ));
+
+Route::get('/getExams', array(
+    'before' => 'auth',
+    'uses' => 'TypingController@getExamNames'));
+
+Route::post('/upload/img', array(
+    'before' => 'auth',
+    'uses' => 'FileUploadController@imgUpload'));
+
+Route::post('/postQues', array(
+    'before' => 'auth',
+    'uses' => 'TypingController@postQues'));
 // Remove this later
 
 Route::get('dbset', function(){

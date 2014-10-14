@@ -1,0 +1,94 @@
+<div class="batchdetails">
+<table class='pure-table'>
+				<tbody>
+					<tr>
+						<td> {{publishername}} </td>
+						<td> {{bookname}} </td>
+						<td> {{edition}} </td>
+						<td> {{chaptername}} </td>
+						<td> {{chapterid}} </td>
+						<td style= "background-color:gray"> Batch ID = {{batchid}}  </td>
+						<td ng-click = 'getQID()' style='cursor:pointer;' ng-bind = 'qidtext'>  </td>
+					</tr>
+				</tbody>
+</table>
+</div>
+<div class='typingcontainer' ng-show='ifqidassigned()'>
+	<div class="typingpageinputs">
+
+		<h2 style='color:#0B3861;'> <input style='width:120px; margin-right:20px;' type="number" name="pageno" ng-model='pageNo' placeholder='Enter Page No.'> Selected topic is {{currentTopic.topicname}} 
+		<select class='topicselect'>
+	    	<option> First select your Topic here! </option>
+	  		<option ng-repeat = 'topics in topiclist[0].topic' ng-click = 'selectTopic($index)'>
+	  			{{topics.topicname}}</option>
+		</select>
+		<input type="checkbox" ng-show = 'showSubmitButton()' ng-model="doubt" style='color:#0B3861;'> <span ng-show = 'showSubmitButton()'> Doubt?  </span>
+		<span ng-show='doubt' style='margin-left:40px; color:#0B3861'>I have a doubt in the question data entry!</span>
+		<button class='submitbutton' ng-click = 'submitQ()' ng-show = 'showSubmitButton()'> Submit and Next </button>
+		</h2>
+	</div>
+	
+
+		<div class="qentry">
+		<h3> Question Body Text </h3><div class='imageupload' ng-controller="QbodyFileUploadController">
+  			<input type="file" ng-file-select="onFileSelect($files)">
+		</div>
+		<textarea class='editable qbody' ng-model='qbodytext'  ng-keyup = 'updateqdisplay()'></textarea>
+
+		<h3> Option A</h3><div class='imageupload' ng-controller="AoptFileUploadController">
+  			<input type="file" ng-file-select="onFileSelect($files)">
+		</div>
+		<textarea class='editable option' ng-model='aoptiontext'  ng-keyup = 'updateqdisplay()'></textarea>
+
+		<h3> Option B </h3><div class='imageupload' ng-controller="BoptFileUploadController">
+  			<input type="file" ng-file-select="onFileSelect($files)">
+		</div>
+		<textarea class='editable option' ng-model='boptiontext'  ng-keyup = 'updateqdisplay()'></textarea>
+
+		<h3> Option C </h3><div class='imageupload' ng-controller="CoptFileUploadController">
+  			<input type="file" ng-file-select="onFileSelect($files)">
+		</div>
+		<textarea class='editable option' ng-model='coptiontext'  ng-keyup = 'updateqdisplay()'></textarea>
+
+		<h3> Option D </h3><div class='imageupload' ng-controller="DoptFileUploadController">
+  			<input type="file" ng-file-select="onFileSelect($files)">
+		</div>
+		<textarea class='editable option' ng-model='doptiontext'  ng-keyup = 'updateqdisplay()'></textarea>
+
+		<h3 style='width:150px;'>Special Exam?</h3>
+		<div class="specialexam">
+			<!-- <select class='examselect'>
+	    	<option> Select Exam! </option>
+	  		<option ng-repeat = 'exam in examlist' ng-click = 'selectExam($index)'>
+	  			{{exam.examname}}</option>
+			</select> -->
+			<select  class='examselect' ng-model="selectedexam" ng-options="exam.examname for exam in examlist">
+  			</select>
+			<input type="text" name="pageno" ng-model='examYear' ng-show='showExamYear()'placeholder='Enter exam year'>
+		</div>
+		<h3 style='width:260px;'>Correct Answer</h3>
+		<select ng-model="correctans" ng-options="opts.choice for opts in correctopts" ng-required>
+  		</select> <br> <br>
+		<h3> Solution </h3>
+		<div class='imageupload' ng-controller="SolFileUploadController">
+  			<input type="file" ng-file-select="onFileSelect($files)">
+		</div>
+		<textarea class='editable solution' ng-model='solutiontext'  ng-keyup = 'updatesoldisplay()'></textarea>
+	</div>
+
+	<div class="qshow">
+		<h2> Question </h2>
+		<div id="qdisplay" ng-bind-html = 'qdisplay |unsafe' style="border:1px solid; padding: 3px; margin-top:5px; width:450px; overflow: scroll; height:300px"></div>
+    <br>
+    <br>
+    	<h2>Solution</h2>
+    <div id="soldisplay" ng-bind-html = 'soldisplay|unsafe' style="border:1px solid; padding: 3px; margin-top:5px; width:450px; overflow: scroll; height:200px"></div>
+    <a ng-click='RunMJ()'> <img class='mjlogo' title="Run MathJax"
+    src="http://cdn.mathjax.org/mathjax/badge/mj_logo_60x20.png"
+    border="0" alt="Run MathJax" />
+</a>
+	<button ng-click = 'runLatex()'> RunLatex </button>
+	<div id='latexdisplay' ng-bind-html = 'latexdisplay | unsafe'>  </div>
+	</div>
+
+</div>

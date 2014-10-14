@@ -1,1 +1,48 @@
-<div class="setup"></div>
+<div class="page-content setup">
+    <div class="select-books">
+    	<h2> Select Book </h2>
+	    <select class= 'setupselect'>
+	    	<option ng-hide = 'isbookselected()'> First select your book here! </option>
+	  		<option ng-repeat = 'books in booklist' ng-click = 'selectBook($index)'>
+	  			{{books.publisher.publishername}} >>
+	  			{{books.bookname}}
+	  			{{books.edition}}</option>
+		</select>
+	</div>
+	<div class="chapterlist" ng-show='isbookselected()'>
+		<h2>Now select chapter</h2>
+		<select class= 'setupselect'>
+			<option ng-hide = 'selectedchapter != null'> Select your chapter here! </option>
+	  		<option ng-repeat = 'chapter in booklist[selectedid].chapter' ng-click = 'selectChapter($index)'>
+	  			{{chapter.chaptername}}</option>
+		</select>
+
+	</div>
+	<div class="selectedlist" ng-show='ischapterselected()'>
+		<h2> You have selected </h2>
+			<table class='pure-table pure-table-bordered'>
+				<thead>
+					<tr>
+						<th> Publisher Name </th>
+						<th> Book Name </th>
+						<th> Edition </th>
+						<th> Chapter </th>
+						<th> Chapter ID </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td> {{booklist[selectedid].publisher.publishername}} </td>
+						<td> {{booklist[selectedid].bookname}} </td>
+						<td> {{booklist[selectedid].edition}} </td>
+						<td> {{booklist[selectedid].chapter[selectedchapter].chaptername}} </td>
+						<td> {{booklist[selectedid].chapter[selectedchapter].id}} </td>
+					</tr>
+				</tbody>
+			</table>
+			
+	</div>
+	<div class="submitChapter" ng-show='ischapterselected()'>
+		<button ng-click = 'proceed(selectedid,selectedchapter)'> You may proceed! </button>
+	</div>
+</div>
